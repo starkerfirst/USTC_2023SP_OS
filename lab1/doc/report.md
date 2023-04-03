@@ -2,11 +2,13 @@
 
 PB20000328 杨博涵
 
+## 实验目标
 
+编写一个头部满足MultiBoot协议的OS内核，实现VGA、UART输出。
 
 ### 实验原理
 
-编写一个头部满足MultiBoot协议的OS内核，实现VGA、UART输出。qemu使用的是grub bootloader，支持MultiBoot启动，只要我们的内核头部满足MultiBoot协议就能被启动。
+qemu使用的是grub bootloader，支持MultiBoot启动，只要我们的内核头部满足MultiBoot协议就能被启动。
 
 内核内容是在vga显存处写数据，同时在uart端口上写数据。
 
@@ -17,6 +19,20 @@ multibootHeader.s : 内核汇编代码
 multibootHeader.ld : ld的script file，描述output file属性
 
 Makefile : make文件
+
+
+
+VGA中movl $0x2f652f68, 0xB8000 是在把”OK“两个字符移到VGA显存里供输出。
+
+ 串口 movb $0x7a, %al 是在将一个ascii码字符0x7a放到串口缓冲区，然后输出到stdio。
+
+### 代码布局说明
+
+multiboot_header.bin 在内存占1320字节（文件属性）。VGA内存部分是从0xB8000 开始分配的，输出一个字符需要2Byte，而一个movl指令移动4Byte，所以两个movl指令中间目标地址相差为4
+
+### 编译过程说明
+
+使用make编译生成bin，使用qemu-system-i386 -kernel multibootHeader.bin -serial stdio使用模拟器。
 
 ### 运行结果
 
