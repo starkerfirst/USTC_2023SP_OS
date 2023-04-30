@@ -20,5 +20,7 @@ void uart_put_chars(char *str){
 	for(int i = 0; str[i] != 0; i++)
 		{
 			uart_put_char(str[i]);
+			if(str[i]=='\n') uart_put_char('\r');
+
 		}    
 }
