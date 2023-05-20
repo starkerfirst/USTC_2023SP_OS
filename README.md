@@ -3,6 +3,10 @@ In this repo, we will design a tiny OS on qemu that contains all basic component
 
 
 
-lab1: multiboot
+lab1: multiboot protocol
 
-lab2:  printf() on vga
+lab2: print
+
+lab3: timer, interrupt, shell
+
+lab4: memory management
