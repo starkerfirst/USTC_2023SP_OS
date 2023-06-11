@@ -10,3 +10,5 @@ lab2: print
 lab3: timer, interrupt, shell
 
 lab4: memory management
+
+lab5: task management with FCFS
